@@ -1,0 +1,11 @@
+exportPattern(	calcAtkinson,
+			calcGEI,
+			calcSConc,
+			calcSGini,
+			curveConcent,
+			curveLorenz,
+			decompAtkinson,
+			decompGEI,
+			decompSGini
+)
+S3method(summary, ICI)

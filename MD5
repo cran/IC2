@@ -1,0 +1,16 @@
+d7fcd8f580de954a036b5b9b23d9f924 *DESCRIPTION
+53c09e172978d49f1514d10147869d87 *NAMESPACE
+594629e17d498e530c1518a9774a1cb1 *R/InegConc.r
+b58007df87021e6868dba911874e03a9 *data/hhbudgets.rda
+147f509032f3e8bc42ed28de2cc3bd44 *man/IC2-package.Rd
+ad0d42608b054a9de86c91e2365530a1 *man/calcAtkinson.Rd
+fe01eb9066142e64d86e88ef6cbc3249 *man/calcGEI.Rd
+892c668652dacb3350eb8c1617eec23c *man/calcSConc.Rd
+a9c8c2ff316b9a5585b4226c13d6c352 *man/calcSGini.Rd
+19c51cad78db7700163f9131d6c89352 *man/curveConcent.Rd
+b1d90f826a0493b27c924749d2df780d *man/curveLorenz.Rd
+7efabd75c2d4bb61d137f56b8b2a1861 *man/decompAtkinson.Rd
+7a0f3bb54090cf1a61bd4ab2c7db9399 *man/decompGEI.Rd
+23bdc48b89034d3331f45c4f2798e6ba *man/decompSGini.Rd
+8b7117f0842558b00581cba9c86b20c1 *man/hhbudgets.Rd
+3a1af8c3867618b23fbea3d866f913c6 *man/summary.ICI.Rd
