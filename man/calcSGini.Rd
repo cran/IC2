@@ -17,7 +17,7 @@ Numeric vector with non-negative values.
 Numeric vector of sampling weigths (optional).
 }
   \item{param}{
-Parameter specifying the extended Gini index (must be positive).
+Parameter specifying the extended Gini index (must be strictly positive).
 }
 }
 \value{

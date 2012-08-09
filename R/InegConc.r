@@ -9,7 +9,7 @@ calcSGini<-function(x, w=NULL, param=2)
 
 calcConc<-function(x, y, w, param)
 {
-  if (param<0) return(NULL)
+  if (param<=0) return(NULL)
   if (!is.numeric(x)) return(NULL)
   xNA<-sum(as.numeric(is.na(x)))
   if (!is.null(y))
@@ -36,18 +36,21 @@ calcConc<-function(x, y, w, param)
   names(param)<-"param"
   if (nrow(df)>1)
   {
-    df[,"w"]<-df[,"w"]/sum(df[,"w"])
-    xMean<-weighted.mean(df[,"x"],df[,"w"])
-    if (is.null(y)) df<-df[order(df[,"x"]),]
-    else df<-df[order(df[,"y"]),]
-    sp<-cumsum(df[,"w"])
-    sp[length(sp)]<-1
-    sm<-c(0, sp[-length(sp)])
-    wr<-(((1-sm)^param)-((1-sp)^param))/(param*df[,"w"])
-    wvar<-sum(df[,"w"] * ((wr - weighted.mean(wr, df[,"w"]))^2))
-    reg1<-coef(lm((-param*wvar*df[,"x"]/xMean)~wr, weights=df[,"w"]))
-    names(reg1)<-NULL
-    index<-reg1[2]
+    if (param != 1)
+    {
+      df[,"w"]<-df[,"w"]/sum(df[,"w"])
+      xMean<-weighted.mean(df[,"x"],df[,"w"])
+      if (is.null(y)) df<-df[order(df[,"x"]),]
+      else df<-df[order(df[,"y"]),]
+      sp<-cumsum(df[,"w"])
+      sp[length(sp)]<-1
+      sm<-c(0, sp[-length(sp)])
+      wr<-(((1-sm)^param)-((1-sp)^param))/(param*df[,"w"])
+      wvar<-sum(df[,"w"] * ((wr - weighted.mean(wr, df[,"w"]))^2))
+      reg1<-coef(lm((-param*wvar*df[,"x"]/xMean)~wr, weights=df[,"w"]))
+      names(reg1)<-NULL
+      index<-reg1[2]
+    }
   }
   if (is.null(y)) names(index)<-"SGini"
   else names(index)<-"SConc"
@@ -92,7 +95,7 @@ calcGEI<-function(x, w=NULL, alpha=1)
   if(nrow(df)==1) return(GEI)  
   if (alpha==0) index<-calcTheil0(df)
   if (alpha==1) index<-calcTheil1(df)
-  if (alpha!=1 & alpha!=0)
+  if (alpha!=1 && alpha!=0)
   {
     xMean<-weighted.mean(df[,"x"], df[,"w"])
     index<-weighted.mean(((df[,"x"]/xMean)^alpha)-1, df[,"w"])/(alpha*(alpha-1))
@@ -143,7 +146,7 @@ calcAtkinson<-function(x, w=NULL, epsilon=1)
   df<-df[complete.cases(df),, drop=FALSE]
   if(nrow(df)==0) return (NULL)
   if(any(df[,"x"]<0) || sum(df[,"x"])==0) return(NULL)
-  if (any(df[,"x"]==0) & epsilon==1) return(NULL)
+  if (any(df[,"x"]==0) && epsilon==1) return(NULL)
   index<-0
   names(index)<-"Atk"
   names(epsilon)<-"epsilon"
@@ -257,7 +260,7 @@ curveLoCo<-function(x, y, w, gener, xlab, ylab, add, grid, ...)
 
 decompSGini<-function(x, z, w=NULL, param=2, decomp="BM", ELMO=TRUE)
 {
-  if (param<0) return(NULL)
+  if (param<=0) return(NULL)
   if (!is.numeric(x)) return(NULL)
   xNA<-sum(as.numeric(is.na(x)))
   if (!is.factor(z)) return(NULL)
@@ -366,14 +369,14 @@ decompSGini<-function(x, z, w=NULL, param=2, decomp="BM", ELMO=TRUE)
         SGiniStratif[i]<-(1-(b2/b1))/(1-wIntra[i])
       }
     }  
-    names(SGiniStratif)<-names(wIntra)
-    SGiniStratifContrib<-sIntra*SGiniIntra*SGiniStratif*(wIntra-1)
-    SGiniStratifTot<-sum(SGiniStratifContrib)
     wr<-wrMeanIntra
     wrmean<-weighted.mean(wr, wIntra)
     wrvar<-sum(wIntra * ((wr - wrmean)^2))
     SGiniInter<-coef(lm((-param*wrvar*xMeanIntra/xMean)~wr, weights=wIntra))[2]
     names(SGiniInter)<-NULL
+    names(SGiniStratif)<-names(wIntra)
+    SGiniStratifContrib<-sIntra*SGiniIntra*SGiniStratif*(wIntra-1)
+    SGiniStratifTot<-sum(SGiniStratifContrib)
     names(param)<-"param"
     SGD<-list(ineq=   list(index=SGini,
                           parameter=param),
@@ -488,7 +491,7 @@ decompAtkinson<-function(x, z, w=NULL, epsilon=1, decomp="BDA", ELMO=TRUE)
   df<-df[complete.cases(df),, drop=FALSE]
   if (nrow(df)==0) return (NULL)
   if (any(df[,"x"]<0)) return(NULL)
-  if (any(df[,"x"]==0) & epsilon==1) return(NULL)
+  if (any(df[,"x"]==0) && epsilon==1) return(NULL)
   if (sum(df[,"x"])==0) return(NULL)
   if (nrow(df)==1) return(NULL)
   names(epsilon)<-"epsilon"

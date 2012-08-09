@@ -21,7 +21,7 @@ Factor who determines the subgroups.
 Numeric vector of sampling weigths (optional).
 }
   \item{param}{
-Parameter specifying the extended Gini index (must be positive).
+Parameter specifying the extended Gini index (must be strictly positive).
 }
   \item{decomp}{
 Character string specifying the decomposition. This must be one of \code{"BM"}

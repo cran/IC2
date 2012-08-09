@@ -20,7 +20,7 @@ Numeric vector used for the ranking of vector \code{x}.
 Numeric vector of sampling weigths (optional).
 }
   \item{param}{
-Parameter specifying the concentration index (must be positive).
+Parameter specifying the concentration index (must be strictly positive).
 }
 }
 \value{
